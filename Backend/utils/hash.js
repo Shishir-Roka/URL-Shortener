@@ -1,0 +1,9 @@
+import {randomBytes , createHmac} from "crypto"
+
+export function hashedPasswordWithSalt(password, userSalt= undefined){
+    
+    const salt =userSalt ?? randomBytes(256).toString("hex");
+    const hashedPass = createHmac("sha256", salt).update(password).digest("hex");
+
+    return { salt , hashedPass}
+}
