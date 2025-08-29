@@ -5,11 +5,11 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: URLShortener
+      POSTGRES_USER: urlshortener
+      POSTGRES_PASSWORD: myPassword
+      POSTGRES_DB: urlshortener
     volumes:
-      - pgdata:/var/lib/postgresql/data 
+      - urlshortener_pgdata:/var/lib/postgresql/data 
 
 volumes:
-  pgdata:
+  urlshortener_pgdata:
