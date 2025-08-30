@@ -9,8 +9,9 @@ const port = 8000;
 app.use(express.json());
 app.use(authMiddleware);
 
-app.use(urlRouter);
+
 app.use("/users",userRouter)
+app.use(urlRouter);
 
 app.get("/",(req,res)=>{
   res.status(200).json({message:"Server is up"})

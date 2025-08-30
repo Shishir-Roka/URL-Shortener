@@ -10,7 +10,6 @@ export function createUserToken(payload) {
 export function validateUserToken(token){
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    
     return payload; 
  
   } catch (err) {
