@@ -67,10 +67,11 @@ router.post("/login", async (req, res) => {
     return res.status(400).json({ error: "Invalid password" });
   }
 
-  const payload = { id: user.id, name: user.firstName, email: user.email };
+  const payload = {id: user.id, name: user.firstName, email: user.email };
+  
   const usertoken = createUserToken(payload);
 
-  res.json({ success: usertoken });
+  res.json({ token: usertoken });
 });
 
 export default router;

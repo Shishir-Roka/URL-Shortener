@@ -1,3 +1,4 @@
+import { id } from "zod/v4/locales";
 import db from "../db/index.js";
 import { usersTable } from "../Module/user.model.js";
 import { eq } from "drizzle-orm";
@@ -8,6 +9,7 @@ export async function getUserByEmail(email) {
       email: usersTable.email,
       firstName: usersTable.firstName,
       lastName: usersTable.lastName,
+      id: usersTable.id,
       email: usersTable.email,
       salt: usersTable.salt,
       password:usersTable.password
