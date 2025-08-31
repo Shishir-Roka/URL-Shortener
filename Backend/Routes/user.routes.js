@@ -1,7 +1,9 @@
 import express from "express";
 import db from "../db/index.js";
 import { usersTable } from "../Module/user.model.js";
-import {signupPostRequestBodySchema,loginPostRequestBodySchema,
+import {
+  signupPostRequestBodySchema,
+  loginPostRequestBodySchema,
 } from "../validations/request.validation.js";
 import { hashedPasswordWithSalt } from "../utils/hash.js";
 import { getUserByEmail, createUser } from "../services/user.service.js";
@@ -26,7 +28,6 @@ router.post("/signup", async (req, res) => {
   const { firstName, lastName, email, password } = validationResult.data;
 
   const existingEmail = await getUserByEmail(email);
-  console.log(existingEmail);
 
   if (existingEmail) {
     return res.status(400).json({ error: "Email already exists" });
@@ -41,8 +42,24 @@ router.post("/signup", async (req, res) => {
     password: hashedPass,
     salt,
   });
+  const payload = {
+    id: newUser.id,
+    name: newUser.firstName,
+    email: newUser.email,
+  };
 
-  return res.status(200).json({ data: { userID: newUser.id } });
+  const usertoken = createUserToken(payload);
+
+  res.cookie("token", usertoken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
+  });
+
+  return res
+    .status(200)
+    .json({ data: { userID: newUser.id }, message: "Signup successful" });
 });
 
 router.post("/login", async (req, res) => {
@@ -67,11 +84,29 @@ router.post("/login", async (req, res) => {
     return res.status(400).json({ error: "Invalid password" });
   }
 
-  const payload = {id: user.id, name: user.firstName, email: user.email };
-  
+  const payload = { id: user.id, name: user.firstName, email: user.email };
+
   const usertoken = createUserToken(payload);
 
-  res.json({ token: usertoken });
+  res.cookie("token", usertoken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
+  });
+
+  return res.status(200).json({ message: "Login successful" });
 });
+
+router.post("/logout", (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+
+  return res.status(200).json({ message: "Logged out successfully" });
+});
+
 
 export default router;

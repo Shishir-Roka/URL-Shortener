@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 import { register } from '../services/userAuth';
+import { useNavigate } from 'react-router-dom';
 
-export default function Register({state}) {
+export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [firstName, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigation = useNavigate();
 
   const handleRegister = async() => {
     console.log('Register:', { firstName,lastName, email, password });
@@ -104,7 +107,7 @@ export default function Register({state}) {
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Already have an account?
-              <span onClick={()=>state(true)} className="ml-1 text-blue-600 hover:text-blue-500 font-semibold cursor-pointer">
+              <span onClick={()=>navigation("/login")} className="ml-1 text-blue-600 hover:text-blue-500 font-semibold cursor-pointer">
                 Sign In
               </span>
             </p>
