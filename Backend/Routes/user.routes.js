@@ -59,7 +59,15 @@ router.post("/signup", async (req, res) => {
 
   return res
     .status(200)
-    .json({ data: { userID: newUser.id }, message: "Signup successful" });
+    .json({
+      data: {
+        userID: newUser.id,
+        name: newUser.firstName,
+        email: newUser.email,
+        usertoken,
+      },
+      message: "Signup successful",
+    });
 });
 
 router.post("/login", async (req, res) => {
@@ -95,7 +103,12 @@ router.post("/login", async (req, res) => {
     maxAge: 1000 * 60 * 60 * 24, // 1 day
   });
 
-  return res.status(200).json({ message: "Login successful" });
+  return res
+    .status(200)
+    .json({
+      data: { id: user.id, name: user.firstName, email: user.email, usertoken },
+      message: "Login successful",
+    });
 });
 
 router.post("/logout", (req, res) => {
@@ -107,6 +120,5 @@ router.post("/logout", (req, res) => {
 
   return res.status(200).json({ message: "Logged out successfully" });
 });
-
 
 export default router;

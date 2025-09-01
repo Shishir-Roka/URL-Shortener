@@ -30,7 +30,7 @@ export async function createUser({
   const [insertUser] = await db
     .insert(usersTable)
     .values({ firstName, lastName, email, password, salt })
-    .returning({ id: usersTable.id });
+    .returning({ id: usersTable.id, firstName:usersTable.firstName, email:usersTable.email  });
 
   return insertUser;
 }

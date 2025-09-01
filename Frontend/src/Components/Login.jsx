@@ -1,21 +1,28 @@
-import { useState } from 'react';
+import {  useState } from 'react';
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
-import { login } from '../services/userAuth';
+import { login, logout } from '../services/userAuth';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+   const auth = useSelector((state)=>state.auth)
+
+
   const navigation = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin = async() => {
     console.log('Login:', { email, password });
-    const data = await login(email,password);
-    console.log(data.token);
+    const respond = await login(email,password);
+    console.log(respond);
     
-    
+    dispatch(login(respond.data));
+      console.log(auth)
+ 
   };
 
   return (
