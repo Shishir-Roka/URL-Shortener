@@ -2,7 +2,7 @@ import express from "express";
 import { shortenPostRequestSchema } from "../validations/request.validation.js";
 import { nanoid } from "nanoid";
 import { ensureAuthentication } from "../Middleware/authMiddleware.js";
-import { createShortenURl } from "../services/url.service.js";
+import { createShortenURl , checkShortenURl} from "../services/url.service.js";
 import db from "../db/index.js";
 import { and, eq } from "drizzle-orm";
 import { urlsTable } from "../Module/url.model.js";
@@ -10,27 +10,59 @@ import { urlsTable } from "../Module/url.model.js";
 const router = express.Router();
 
 router.post("/shorten", ensureAuthentication, async (req, res) => {
-  const userID = req.user.id;
+  try {
+    const userID = req.user.id;
 
-  const validationResult = await shortenPostRequestSchema.safeDecodeAsync(
-    req.body
-  );
+    const validationResult = await shortenPostRequestSchema.safeParseAsync(req.body);
 
-  if (validationResult.error) {
-    return res.status(400).json({ error: validationResult.error.format() });
+    if (validationResult.error) {
+      return res.status(400).json({
+        success: false,
+        message: "URl required",
+        errors: validationResult.error.format(),
+      });
+    }
+
+    const { code, url } = validationResult.data;
+
+    if(code){
+      const duplicate = await checkShortenURl(code);
+      if(duplicate){
+         return res.status(400).json({
+        success: false,
+        message: "short URl already exits",
+      });
+      }
+
+    }
+    
+    const shortCode = code ?? nanoid(6);
+
+ 
+    const result = await createShortenURl({
+      targetURl: url,
+      shortCode,
+      userID,
+    });
+
+    return res.status(201).json({
+      success: true,
+      data: {
+        id: result.id,
+        shortCode: result.shortCode,
+        targetUrl: result.targetURL,
+      },
+      message: "Short URL created successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong. Please try again later.",
+    });
   }
-  const { code, url } = validationResult.data;
-
-  const shortCode = code ?? nanoid(6);
-
-  const result = await createShortenURl({ targetURl: url, shortCode, userID });
-
-  res.status(200).json({
-    id: result.id,
-    shortCode: result.shortCode,
-    targetURl: result.targetUR,
-  });
 });
+
 
 router.get("/codes", ensureAuthentication, async (req, res) => {
   const userId = req.user.id;

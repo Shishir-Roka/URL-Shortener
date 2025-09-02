@@ -8,9 +8,15 @@ export async function createShortenURl({targetURl, shortCode, userID }) {
     .values({ targetURl, shortCode, userID })
     .returning({
       id: urlsTable.id,
-      targetUR: urlsTable.targetURl,
+      targetURL: urlsTable.targetURl,
       shortCode: urlsTable.shortCode,
     });
 
+     return result;
+} 
+export async function checkShortenURl(code) {
+    const [result] = await db
+    .select().from(urlsTable).where(eq(urlsTable.shortCode,code));
+   
      return result;
 } 

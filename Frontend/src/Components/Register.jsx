@@ -18,6 +18,12 @@ export default function Register() {
 
   const handleSignup = async () => {
     setError(null);
+    
+    if (firstName === "" || lastName === "" || email === "" || password === "") {
+      setError("All fields are required");
+      return;
+    }
+
     try {
       const respond = await usersignup(firstName, lastName, email, password);
       dispatch(login(respond.data));

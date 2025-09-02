@@ -1,29 +1,34 @@
-import {  useState } from 'react';
-import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
-import { userlogin } from '../services/userAuth';
-import {login} from '../Store/Slice/AuthSlice.js'
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useState } from "react";
+import { Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { userlogin } from "../services/userAuth";
+import { login } from "../Store/Slice/AuthSlice.js";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
   const navigation = useNavigate();
   const dispatch = useDispatch();
 
-const handleLogin = async () => {
-  setError(null);
-  try {
-    const respond = await userlogin(email, password);
-    dispatch(login(respond.data));
-    navigation("/");
-  } catch (err) {
-    setError(err.message);
-  }
-};
+  const handleLogin = async () => {
+    setError(null);
+
+    if (email === "" || password === "") {
+      setError("All fields are required");
+      return;
+    }
+    try {
+      const respond = await userlogin(email, password);
+      dispatch(login(respond.data));
+      navigation("/");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
@@ -34,9 +39,7 @@ const handleLogin = async () => {
             <h2 className="text-3xl font-bold text-gray-900 mb-2">
               Welcome Back
             </h2>
-            <p className="text-gray-600">
-              Sign in to your account
-            </p>
+            <p className="text-gray-600">Sign in to your account</p>
           </div>
 
           {/* Show error */}
@@ -68,7 +71,7 @@ const handleLogin = async () => {
                 <Lock className="h-5 w-5 text-gray-400" />
               </div>
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
@@ -79,7 +82,11 @@ const handleLogin = async () => {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
               >
-                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5" />
+                ) : (
+                  <Eye className="h-5 w-5" />
+                )}
               </button>
             </div>
 
@@ -99,12 +106,14 @@ const handleLogin = async () => {
             <div className="flex-1 border-t border-gray-200"></div>
           </div>
 
-
           {/* Link to register */}
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Don't have an account?
-              <span onClick={()=>navigation("/register")} className="ml-1 text-blue-600 hover:text-blue-500 font-semibold cursor-pointer">
+              <span
+                onClick={() => navigation("/register")}
+                className="ml-1 text-blue-600 hover:text-blue-500 font-semibold cursor-pointer"
+              >
                 Sign Up
               </span>
             </p>
