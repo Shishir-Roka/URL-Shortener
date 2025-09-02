@@ -1,29 +1,29 @@
 import {  useState } from 'react';
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
-import { login, logout } from '../services/userAuth';
+import { userlogin } from '../services/userAuth';
+import {login} from '../Store/Slice/AuthSlice.js'
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-   const auth = useSelector((state)=>state.auth)
-
+    const [error, setError] = useState(null);
 
   const navigation = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogin = async() => {
-    console.log('Login:', { email, password });
-    const respond = await login(email,password);
-    console.log(respond);
-    
+const handleLogin = async () => {
+  setError(null);
+  try {
+    const respond = await userlogin(email, password);
     dispatch(login(respond.data));
-      console.log(auth)
- 
-  };
+    navigation("/");
+  } catch (err) {
+    setError(err.message);
+  }
+};
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
@@ -38,6 +38,13 @@ export default function Login() {
               Sign in to your account
             </p>
           </div>
+
+          {/* Show error */}
+          {error && (
+            <div className="mb-4 p-3 rounded-lg bg-red-100 text-red-700 text-sm">
+              {error}
+            </div>
+          )}
 
           {/* Login Form */}
           <div className="space-y-6">

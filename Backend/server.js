@@ -3,6 +3,7 @@ import userRouter from "./Routes/user.routes.js"
 import { authMiddleware } from "./Middleware/authMiddleware.js";
 import urlRouter from "./Routes/url.routes.js"
 import cors from 'cors'; 
+import cookieParser from "cookie-parser";
 
 const app = express();
 const port = 8000;
@@ -12,6 +13,7 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json());
+app.use(cookieParser());
 app.use(authMiddleware);
 
 
