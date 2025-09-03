@@ -1,22 +1,18 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
-
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-export default function AuthLayout({ children }) {
-  const navigate = useNavigate();
+export default function PublicRoute({ children }) {
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
-  
-  
   useEffect(() => {
-    if (!loading && !isAuthenticated) {
-      navigate("/login");
+    if (!loading && isAuthenticated) {
+      navigate("/"); // already logged in, redirect home
     }
-   
   }, [isAuthenticated, loading, navigate]);
 
-  if (loading)  return <div>Loading...</div>;; 
+  if (loading) return <div>Loading...</div>;
 
   return <>{children}</>;
 }

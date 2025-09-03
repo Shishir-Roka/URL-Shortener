@@ -1,12 +1,10 @@
-import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
-import Login from "./Components/Login.jsx";
-import Register from "./Components/Register.jsx";
 import { useEffect } from "react";
 import { getCurrentUser } from "./services/userAuth.js";
 import { useDispatch } from "react-redux";
 import { login, setLoading } from "./Store/Slice/AuthSlice.js";
-import AuthLayout from "./AuthLayout.jsx"
+import { Outlet } from 'react-router-dom'
+import Header from "./Header/Header.jsx";
 
 function App() {
 
@@ -33,20 +31,12 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div>
-      <Routes>
-          <Route
-          path="/"
-          element={
-            <AuthLayout>
-              <Home />
-            </AuthLayout>
-          }
-        />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-    </div>
+    <>
+    <Header/>
+     <main> 
+        <Outlet />
+      </main>
+      </>
   );
 }
 
