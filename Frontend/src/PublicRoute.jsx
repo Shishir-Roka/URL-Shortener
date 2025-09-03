@@ -8,7 +8,7 @@ export default function PublicRoute({ children }) {
 
   useEffect(() => {
     if (!loading && isAuthenticated) {
-      navigate("/"); // already logged in, redirect home
+      navigate("/"); 
     }
   }, [isAuthenticated, loading, navigate]);
 
