@@ -176,5 +176,3 @@ The application uses Drizzle ORM with the following main tables:
 - **urls**: Shortened URLs linked to users
 
 
-
-**Made with ❤️ by [Your Name]**
