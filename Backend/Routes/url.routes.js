@@ -65,29 +65,47 @@ router.post("/shorten", ensureAuthentication, async (req, res) => {
 
 
 router.get("/codes", ensureAuthentication, async (req, res) => {
-  const userId = req.user.id;
+  try {
+    const userId = req.user.id;
 
-  const result = await db
-    .select()
-    .from(urlsTable)
-    .where(eq(urlsTable.userID, userId));
-  res.json({ result });
+    const urls = await db
+      .select()
+      .from(urlsTable)
+      .where(eq(urlsTable.userID, userId));
+
+    return res.json({
+      message: "Fetched URLs successfully",
+      urls,  
+    });
+  } catch (error) {
+    console.error("Error fetching user URLs:", error);
+    return res.status(500).json({ error: "Failed to fetch URLs" });
+  }
 });
 
 router.delete("/:id", ensureAuthentication, async (req, res) => {
-  const codeId = req.params.id;
+  try {
+    const codeId = req.params.id;
 
-  const [result] = await db
-    .delete(urlsTable)
-    .where(and(eq(urlsTable.id, codeId),eq(urlsTable.userID,req.user.id)))
-    .returning({ id: urlsTable.id });
+    const [result] = await db
+      .delete(urlsTable)
+      .where(and(eq(urlsTable.id, codeId), eq(urlsTable.userID, req.user.id)))
+      .returning({ id: urlsTable.id });
 
-  if (!result) {
-    return res.status(400).json({ error: "ID not Found" });
+    if (!result) {
+      return res.status(400).json({ error: "ID not found" });
+    }
+
+    return res.json({
+      message: `Code with ID ${result.id} deleted successfully`,
+      deletedId: result.id,
+    });
+  } catch (error) {
+    console.error("Error deleting URL:", error);
+    return res.status(500).json({ error: "Failed to delete URL" });
   }
-
-  return res.json({ message: `Code with Id ${result.id} is deleted` });
 });
+
 
 router.get("/:shortCode", async (req, res) => {
   const code = req.params.shortCode;
