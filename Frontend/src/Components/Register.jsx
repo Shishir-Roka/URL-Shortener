@@ -119,7 +119,7 @@ export default function Register() {
             </button>
           </div>
 
-          {/* Link to login */}
+        
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Already have an account?

@@ -1,15 +1,17 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { logout } from '../Store/Slice/AuthSlice.js';
-
+import { userlogout } from '../services/userAuth.js';
+import { logout} from "../Store/Slice/AuthSlice.js"
 
 function LogoutBtn() {
   const dispatch = useDispatch();
 
-  const logoutHandler = () => {
+  const logoutHandler =async () => {
    console.log("logOUt");
+   await userlogout();
+   dispatch(logout());
    
-  };
+  }
 
   return (
     <button

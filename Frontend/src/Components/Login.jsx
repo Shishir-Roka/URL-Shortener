@@ -34,7 +34,7 @@ export default function Login() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="bg-white rounded-lg shadow-lg p-8">
-          {/* Header */}
+        
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-2">
               Welcome Back
@@ -42,16 +42,16 @@ export default function Login() {
             <p className="text-gray-600">Sign in to your account</p>
           </div>
 
-          {/* Show error */}
+      
           {error && (
             <div className="mb-4 p-3 rounded-lg bg-red-100 text-red-700 text-sm">
               {error}
             </div>
           )}
 
-          {/* Login Form */}
+      
           <div className="space-y-6">
-            {/* Email field */}
+          
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Mail className="h-5 w-5 text-gray-400" />
@@ -65,7 +65,7 @@ export default function Login() {
               />
             </div>
 
-            {/* Password field */}
+          
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Lock className="h-5 w-5 text-gray-400" />
@@ -90,7 +90,7 @@ export default function Login() {
               </button>
             </div>
 
-            {/* Submit button */}
+            
             <button
               onClick={handleLogin}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
@@ -99,14 +99,14 @@ export default function Login() {
             </button>
           </div>
 
-          {/* Divider */}
+         
           <div className="my-6 flex items-center">
             <div className="flex-1 border-t border-gray-200"></div>
             <span className="px-4 text-gray-500 text-sm">or</span>
             <div className="flex-1 border-t border-gray-200"></div>
           </div>
 
-          {/* Link to register */}
+       
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Don't have an account?

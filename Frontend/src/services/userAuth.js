@@ -18,7 +18,7 @@ export async function usersignup(firstName, lastName, email, password ) {
   
   
 }
-export async function logout() {
-  await apiClient.get("/users/logout")
+export async function userlogout() {
+  await apiClient.post("/users/logout")
 
 }
