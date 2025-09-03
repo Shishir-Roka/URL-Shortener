@@ -2,8 +2,7 @@
 
 A modern, full-stack URL shortening service built with React, Node.js, Express, and PostgreSQL. Create short, memorable links with custom codes and manage them through an intuitive web interface.
 
-![Project Status](https://img.shields.io/badge/status-active-success.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
 ![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)
 ![React](https://img.shields.io/badge/React-19-blue.svg)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-blue.svg)
