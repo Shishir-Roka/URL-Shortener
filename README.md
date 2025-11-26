@@ -2,8 +2,7 @@
 
 A modern, full-stack URL shortening service built with React, Node.js, Express, and PostgreSQL. Create short, memorable links with custom codes and manage them through an intuitive web interface.
 
-![Project Status](https://img.shields.io/badge/status-active-success.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
 ![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)
 ![React](https://img.shields.io/badge/React-19-blue.svg)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-blue.svg)
@@ -176,29 +175,4 @@ The application uses Drizzle ORM with the following main tables:
 - **users**: User accounts with authentication data
 - **urls**: Shortened URLs linked to users
 
-## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Drizzle ORM](https://orm.drizzle.team/) for the amazing database toolkit
-- [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
-- [React](https://reactjs.org/) for the powerful frontend library
-- [Express.js](https://expressjs.com/) for the robust backend framework
-
-## 📞 Support
-
-If you have any questions or need help, feel free to open an issue on GitHub.
-
----
-
-**Made with ❤️ by [Your Name]**
