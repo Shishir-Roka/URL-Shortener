@@ -31,7 +31,6 @@ function Header() {
     },
   ];
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);

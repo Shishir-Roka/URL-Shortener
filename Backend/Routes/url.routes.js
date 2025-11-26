@@ -87,7 +87,7 @@ router.delete("/:id", ensureAuthentication, async (req, res) => {
   try {
     const codeId = req.params.id;
 
-    const [result] = await db
+    const [result] = await db   
       .delete(urlsTable)
       .where(and(eq(urlsTable.id, codeId), eq(urlsTable.userID, req.user.id)))
       .returning({ id: urlsTable.id });

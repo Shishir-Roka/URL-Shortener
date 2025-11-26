@@ -148,7 +148,6 @@ function UrlsLists() {
                         </div>
                       </div>
                       
-                      {/* Original URL */}
                       <p className="text-gray-600 text-sm mb-3 break-all">
                         <span className="font-medium">Target: </span>
                         <a 
@@ -161,8 +160,7 @@ function UrlsLists() {
                           {truncateUrl(url.targetURl)}
                         </a>
                       </p>
-                      
-                      {/* Date Info */}
+
                       <div className="flex items-center gap-4 text-sm text-gray-500">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-4 h-4" />
@@ -171,7 +169,6 @@ function UrlsLists() {
                       </div>
                     </div>
                     
-                    {/* Delete Button */}
                     <button
                       onClick={() => handleDelete(url.id)}
                       disabled={deletingId === url.id}

@@ -3,7 +3,7 @@ import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { userlogin } from "../services/userAuth";
 import { login } from "../Store/Slice/AuthSlice.js";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+  import { useDispatch } from "react-redux";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,8 +17,8 @@ export default function Login() {
   const handleLogin = async () => {
     setError(null);
 
-    if (email === "" || password === "") {
-      setError("All fields are required");
+    if (email === "" || password === "") {  
+      setError("All fields are required");  
       return;
     }
     try {
